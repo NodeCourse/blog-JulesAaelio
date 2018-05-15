@@ -18,6 +18,7 @@
   "homepage": "https://github.com/NodeCourse/blog-JulesAaelio#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "materialize-css": "^1.0.0-rc.1",
     "mysql2": "^1.5.3",
     "pug": "^2.0.3",
     "sequelize": "^4.37.7"

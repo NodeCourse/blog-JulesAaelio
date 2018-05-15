@@ -1,5 +1,6 @@
 extends base.pug
 block content
+    h1 Ajouter un post
     form(action='form_handle' method='post')
         div
             label(for='title_field') Titre
@@ -7,4 +8,4 @@ block content
         div
             label(for='content_field') Contenu
             input(id='content_field' name='content')
-        input(type='submit')
+        input(type='submit').btn
