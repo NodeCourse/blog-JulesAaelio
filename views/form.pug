@@ -1,11 +1,11 @@
 extends base.pug
 block content
     h1 Ajouter un post
-    form(action='form_handle' method='post')
+    form(action='form_handle' method='post' )
         div
             label(for='title_field') Titre
             input(id='title_field' name='title')
         div
             label(for='content_field') Contenu
             input(id='content_field' name='content')
-        input(type='submit').btn
+        input(type='submit').btn.btn-block

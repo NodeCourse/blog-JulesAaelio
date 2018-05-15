@@ -1,7 +1,11 @@
 extends base.pug
 block content
+    h1 Super blog
+    a(href="/add").btn.btn-block Ajouter un article
     for article in articles
         div.card
             div.card-content
                 h3.card-title #{article.title}
                 p #{article.content}
+    else
+        div Aucun article

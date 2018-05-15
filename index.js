@@ -11,8 +11,12 @@ app.use(bodyParser.urlencoded({
 
 console.log("App started at " , new Date().toLocaleString());
 
+app.get('/add',(req,res) => {
+    res.render('form');
+});
+
 app.get('/',(req,res) => {
-    res.render('index');
+    displayAll(res);
 });
 
 app.post('/form_handle',(req,res) => {
@@ -25,7 +29,7 @@ app.post('/form_handle',(req,res) => {
                     content: req.body.content
                 }).then(r => {
                     console.log('Article created');
-                    return displayAll(res);
+                    res.redirect('/');
                 }).catch(e => {
                     console.log(e);
                     res.status('Shit happened');
