@@ -1,0 +1,19 @@
+{
+  "name": "blog-julesaaelio",
+  "version": "1.0.0",
+  "description": "Create a blog with a single page listing articles and a form to post a new one.\r An article should have at least the `title` and `content` properties.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NodeCourse/blog-JulesAaelio.git"
+  },
+  "author": "Jules Aaelio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NodeCourse/blog-JulesAaelio/issues"
+  },
+  "homepage": "https://github.com/NodeCourse/blog-JulesAaelio#readme"
+}
