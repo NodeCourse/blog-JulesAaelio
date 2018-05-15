@@ -24,14 +24,22 @@ app.post('/form_handle',(req,res) => {
                     title: req.body.title,
                     content: req.body.content
                 }).then(r => {
-                    console.log('Article created')
+                    console.log('Article created');
+                    return displayAll(res);
                 }).catch(e => {
-                    console.log("ERROR");
+                    console.log(e);
+                    res.status('Shit happened');
                 })
             });
     }
-    res.send('Test');
 });
 
+function displayAll(res){
+   return  db.Article.findAll().then(r => {
+        res.render('list',{
+            articles:r
+        });
+    })
+}
 
 app.listen(3000);
