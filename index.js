@@ -38,12 +38,15 @@ app.post('/form_handle',(req,res) => {
     }
 });
 
-function displayAll(res){
-   return  db.Article.findAll().then(r => {
-        res.render('list',{
-            articles:r
-        });
-    })
+function displayAll(res) {
+    return db.Article.sync()
+        .then(() => {
+            db.Article.findAll().then(r => {
+                res.render('list', {
+                    articles: r
+                });
+        })
+    });
 }
 
 app.listen(3000);

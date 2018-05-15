@@ -14,7 +14,9 @@ db.authenticate().then(r => {
 
 const Article = db.define('article', {
     title: { type: sequelize.STRING },
-    content: { type: sequelize.STRING }
+    content: { type: sequelize.STRING },
+    upvotes : { type: sequelize.INTEGER, defaultValue: 0},
+    downvotes : { type: sequelize.INTEGER, defaultValue: 0}
 });
 
 module.exports.db = db;

@@ -7,5 +7,7 @@ block content
             input(id='title_field' name='title')
         div
             label(for='content_field') Contenu
-            input(id='content_field' name='content')
+            textarea(id='content_field' name='content').materialize-textarea
         input(type='submit').btn.btn-block
+block scripts
+    script(src='/scripts/form.js')
