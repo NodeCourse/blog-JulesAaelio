@@ -4,4 +4,11 @@ html
         link(rel="stylesheet", href="/css/styles.css")
     body
         main
-            div Hello world biatches  !
+            form(action='form_handle')
+                div
+                    label(for='title_field') Titre
+                    input(id='title_field')
+                div
+                    label(for='content_field') Contenu
+                    input(id='content_field')
+                input(type='submit')
