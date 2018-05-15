@@ -1,14 +1,10 @@
-html
-    head
-        title Rock, paper, scissors - JulesAaelio
-        link(rel="stylesheet", href="/css/styles.css")
-    body
-        main
-            form(action='form_handle' method='post')
-                div
-                    label(for='title_field') Titre
-                    input(id='title_field' name='title')
-                div
-                    label(for='content_field') Contenu
-                    input(id='content_field' name='content')
-                input(type='submit')
+extends base.pug
+block content
+    form(action='form_handle' method='post')
+        div
+            label(for='title_field') Titre
+            input(id='title_field' name='title')
+        div
+            label(for='content_field') Contenu
+            input(id='content_field' name='content')
+        input(type='submit')

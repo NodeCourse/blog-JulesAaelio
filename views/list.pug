@@ -1,10 +1,6 @@
-html
-    head
-        title Rock, paper, scissors - JulesAaelio
-        link(rel="stylesheet", href="/css/styles.css")
-    body
-        main
-            for article in articles
-                div
-                    h3 #{article.title}
-                    p #{article.content}
+extends base.pug
+block content
+    for article in articles
+        div
+            h3 #{article.title}
+            p #{article.content}
