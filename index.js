@@ -20,27 +20,29 @@ app.get('/',(req,res) => {
 });
 
 app.post('/vote/up/:id',(req,res) => {
-   db.Article.findById(req.params.id).then((o) => {
-       o.increment('upvotes');
-   }).then(r => {
-       console.log('Upvoted');
-       res.sendStatus(204);
-   }).catch(e => {
-       console.log('error upvoting');
-       console.log(e);
-   });
+    console.log('Vote up');
+    db.UpVote.create().then((a) => {
+        return a.setArticle(req.params.id);
+    }).then((r)=> {
+        findOneArticle(req.params.id).then((r) =>{
+            res.send(r);
+        });
+    }).catch(e => {
+        console.error(e);
+    })
 });
 
 app.post('/vote/down/:id',(req,res) => {
-    db.Article.findById(req.params.id).then((o) => {
-        o.increment('downvotes');
-    }).then(r => {
-        console.log('Downvoted');
-        res.sendStatus(204);
+    console.log("Vote down");
+    db.DownVote.create().then((a) => {
+        return a.setArticle(req.params.id);
+    }).then((r)=> {
+        findOneArticle(req.params.id).then((r) =>{
+            res.send(r);
+        });
     }).catch(e => {
-        console.log('error downvoting');
-        console.log(e);
-    });
+        console.error(e);
+    })
 });
 
 app.post('/form_handle',(req,res) => {
@@ -66,12 +68,28 @@ function displayAll(res) {
     return db.Article.sync()
         .then(() => {
             db.Article.findAll({
-                order: [db.db.literal('(upvotes - downvotes) DESC') ]
+                attributes : {
+                    include: [
+                        [db.db.literal('(SELECT COUNT(*) FROM upvotes WHERE upvotes.articleId = article.id)' ), "voteupcount"],
+                        [db.db.literal('(SELECT COUNT(*) FROM downvotes WHERE downvotes.articleId = article.id)' ), "votedowncount"],
+                    ]
+                },
             }).then(r => {
                 res.render('list', {
                     articles: r
                 });
         })
+    });
+}
+
+function findOneArticle(id){
+    return db.Article.findById(id,{
+        attributes : {
+            include: [
+                [db.db.literal('(SELECT COUNT(*) FROM upvotes WHERE upvotes.articleId = article.id)' ), "voteupcount"],
+                [db.db.literal('(SELECT COUNT(*) FROM downvotes WHERE downvotes.articleId = article.id)' ), "votedowncount"],
+            ]
+        },
     });
 }
 

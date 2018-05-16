@@ -15,23 +15,31 @@ db.authenticate().then(r => {
 const Article = db.define('article', {
     title: { type: sequelize.STRING },
     content: { type: sequelize.STRING },
-    upvotes : { type: sequelize.INTEGER, defaultValue: 0},
-    downvotes : { type: sequelize.INTEGER, defaultValue: 0}
+    voteupcount : {type: sequelize.VIRTUAL},
+    votedowncount : {type: sequelize.VIRTUAL}
 });
 
-const Vote = db.define('vote', {
-   action: {
-       type : sequelize.ENUM('up','down')
-   }
-});
-Article.hasMany(Vote);
-Vote.belongsTo(Article);
+const UpVote = db.define('upvote', {});
+const DownVote = db.define('downvote', {});
+Article.hasMany(UpVote);
+Article.hasMany(DownVote);
+UpVote.belongsTo(Article);
+DownVote.belongsTo(Article);
 
-Vote.sync().then((r) => {
+UpVote.sync().then((r) => {
    console.log('Vote synced');
 }).catch((e) => {
     console.log('Error syncing')
 });
 
+DownVote.sync().then((r) => {
+    console.log('Vote synced');
+}).catch((e) => {
+    console.log('Error syncing')
+});
+
+
 module.exports.db = db;
 module.exports.Article = Article;
+module.exports.UpVote = UpVote;
+module.exports.DownVote = DownVote;

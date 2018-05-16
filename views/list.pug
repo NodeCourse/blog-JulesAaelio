@@ -11,10 +11,11 @@ block content
                     div.col.s11
                         h3.card-title #{article.title}
                         p #{article.content}
+                        p #{article.voteupcount}
 
                     div.col.s1.vote-toggles
                         i(id='vote-up-'+article.id data-id=article.id).fa.fa-caret-up.fa-2x.vote-up
-                        p.vote-count #{-article.downvotes + article.upvotes}
+                        p(id='vote-count-'+article.id).vote-count #{article.voteupcount - article.votedowncount}
                         i(id='vote-down-'+article.id data-id=article.id).fa.fa-caret-down.fa-2x.vote-down
     else
         div Aucun article
