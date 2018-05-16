@@ -22,6 +22,13 @@ const Article = db.define('article', {
 const Comment = db.define('comment',{
     content: { type: sequelize.STRING}
 });
+
+const User = db.define('user', {
+   firstname : { type: sequelize.STRING } ,
+   lastname : { type: sequelize.STRING } ,
+   email : { type: sequelize.STRING } ,
+   password : { type: sequelize.STRING }
+});
 Article.hasMany(Comment);
 Comment.belongsTo(Article);
 
@@ -32,14 +39,23 @@ Article.hasMany(DownVote);
 UpVote.belongsTo(Article);
 DownVote.belongsTo(Article);
 
+//Sync schema.
 db.sync().then(r => {
    console.log("DB SYNCED");
 }).catch(e => {
     console.error(e);
 });
 
+
+User.create({
+    firstname:'Jules',
+    lastname:'LAURENT',
+    email:'jules.laurent@ynov.com',
+    password:'root'
+});
 module.exports.db = db;
 module.exports.Article = Article;
 module.exports.UpVote = UpVote;
 module.exports.DownVote = DownVote;
 module.exports.Comment = Comment;
+module.exports.User = User;
