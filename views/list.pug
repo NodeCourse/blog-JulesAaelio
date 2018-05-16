@@ -1,4 +1,6 @@
 extends base.pug
+block links
+    link(rel="stylesheet" href="/css/list.css")
 block content
     h1 Super blog
     a(href="/add").btn.btn-block Ajouter un article
@@ -10,8 +12,9 @@ block content
                         h3.card-title #{article.title}
                         p #{article.content}
 
-                    div.col.s1
-
-                        P #{-article.downvotes + article.upvotes}
+                    div.col.s1.vote-toggles
+                        i.fa.fa-caret-up.fa-2x
+                        p.vote-count #{-article.downvotes + article.upvotes}
+                        i.fa.fa-caret-down.fa-2x
     else
         div Aucun article
