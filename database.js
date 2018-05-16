@@ -19,5 +19,19 @@ const Article = db.define('article', {
     downvotes : { type: sequelize.INTEGER, defaultValue: 0}
 });
 
+const Vote = db.define('vote', {
+   action: {
+       type : sequelize.ENUM('up','down')
+   }
+});
+Article.hasMany(Vote);
+Vote.belongsTo(Article);
+
+Vote.sync().then((r) => {
+   console.log('Vote synced');
+}).catch((e) => {
+    console.log('Error syncing')
+});
+
 module.exports.db = db;
 module.exports.Article = Article;

@@ -13,8 +13,10 @@ block content
                         p #{article.content}
 
                     div.col.s1.vote-toggles
-                        i.fa.fa-caret-up.fa-2x
+                        i(id='vote-up-'+article.id data-id=article.id).fa.fa-caret-up.fa-2x.vote-up
                         p.vote-count #{-article.downvotes + article.upvotes}
-                        i.fa.fa-caret-down.fa-2x
+                        i(id='vote-down-'+article.id data-id=article.id).fa.fa-caret-down.fa-2x.vote-down
     else
         div Aucun article
+block scripts
+    script(src="/scripts/vote.js")
