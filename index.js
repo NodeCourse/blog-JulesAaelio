@@ -7,6 +7,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use(bodyParser.json());
 
 
 console.log("App started at " , new Date().toLocaleString());
@@ -45,6 +46,17 @@ app.post('/vote/down/:id',(req,res) => {
     })
 });
 
+app.post('/comment/:id',(req,res)=>{
+    console.log(req.body.content);
+    db.Comment.create({
+        content: req.body.content,
+    }).then(r => {
+        return r.setArticle(req.params.id);
+    }).then(r => {
+        res.send(r);
+    })
+});
+
 app.post('/form_handle',(req,res) => {
     if(req.body && req.body.title && req.body.content) {
         db.Article
@@ -74,7 +86,11 @@ function displayAll(res) {
                         [db.db.literal('(SELECT COUNT(*) FROM downvotes WHERE downvotes.articleId = article.id)' ), "votedowncount"],
                     ]
                 },
+                include: {
+                    model: db.Comment
+                }
             }).then(r => {
+                // res.send(r);
                 res.render('list', {
                     articles: r
                 });

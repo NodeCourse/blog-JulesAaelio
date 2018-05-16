@@ -19,6 +19,12 @@ const Article = db.define('article', {
     votedowncount : {type: sequelize.VIRTUAL}
 });
 
+const Comment = db.define('comment',{
+    content: { type: sequelize.STRING}
+});
+Article.hasMany(Comment);
+Comment.belongsTo(Article);
+
 const UpVote = db.define('upvote', {});
 const DownVote = db.define('downvote', {});
 Article.hasMany(UpVote);
@@ -26,20 +32,14 @@ Article.hasMany(DownVote);
 UpVote.belongsTo(Article);
 DownVote.belongsTo(Article);
 
-UpVote.sync().then((r) => {
-   console.log('Vote synced');
-}).catch((e) => {
-    console.log('Error syncing')
+db.sync().then(r => {
+   console.log("DB SYNCED");
+}).catch(e => {
+    console.error(e);
 });
-
-DownVote.sync().then((r) => {
-    console.log('Vote synced');
-}).catch((e) => {
-    console.log('Error syncing')
-});
-
 
 module.exports.db = db;
 module.exports.Article = Article;
 module.exports.UpVote = UpVote;
 module.exports.DownVote = DownVote;
+module.exports.Comment = Comment;

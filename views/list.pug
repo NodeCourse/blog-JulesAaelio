@@ -17,6 +17,13 @@ block content
                         i(id='vote-up-'+article.id data-id=article.id).fa.fa-caret-up.fa-2x.vote-up
                         p(id='vote-count-'+article.id).vote-count #{article.voteupcount - article.votedowncount}
                         i(id='vote-down-'+article.id data-id=article.id).fa.fa-caret-down.fa-2x.vote-down
+                for comment in article.comments
+                    div.row
+                        p #{comment.content}
+                div.row
+                    form
+                        textarea.materialize-textarea
+                        btn(id='add-comment-btn').btn Envoyer
     else
         div Aucun article
 block scripts
