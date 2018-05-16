@@ -76,6 +76,10 @@ app.post('/form_handle',(req,res) => {
     }
 });
 
+app.get('/login',(req,res) => {
+    res.render('login');
+});
+
 function displayAll(res) {
     return db.Article.sync()
         .then(() => {

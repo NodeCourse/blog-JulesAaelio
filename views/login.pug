@@ -1,0 +1,11 @@
+extends base.pug
+block content
+    h1.center Se connecter
+    form(action='handle_login' method='post')
+        div
+            label(for='username-field') Nom d'utilisateur
+            input(name='username' id='username-field')
+        div
+            label(for='password-field') Mot de passe
+            input(id='password-field' type='password')
+        button(type='submit').btn.btn-block Envoyer
