@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 
 function init(User) {
     passport.use(new LocalStrategy((email, password, done) => {
@@ -7,15 +8,15 @@ function init(User) {
             .findOne({
                 where : { email }
             }).then(function (user) {
-                if (!user || !user.validPassword(password)) {
-                    // User not found or an invalid password has been provided
-                    console.log('TAMERE');
-                    return done(null, false, {
-                        message: 'Invalid credentials'
-                    });
-                }
-                // User found
-                return done(null, user);
+                bcrypt.compare(password,user.password).then(r=> {
+                    if(r) {
+                        return done(null, user)
+                    }else {
+                        return done(null, false, {
+                            message: 'Invalid credentials'
+                        });
+                    }
+                });
             })
             // If an error occured, report it
             .catch(done);
@@ -30,13 +31,11 @@ function init(User) {
         console.log("AUTH ATTEMPT",email);
         // Fetch the user record corresponding to the provided email address
         User.findOne({
-            email
+            where : { email }
         }).then(r => {
-            console.log(r);
+            if(r) return cb(null, r);
+            else return cb(new Error("No user corresponding to the cookie's email address"));
         });
-        // return cb(new Error("No user corresponding to the cookie's email address"));
-
-        // return cb(null, JANE_DOE);
     });
     return passport;
 }

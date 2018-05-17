@@ -2,6 +2,7 @@ extends base.pug
 block links
     link(rel="stylesheet" href="/css/list.css")
 block content
+    div Bienvenue #{user.firstname + ' ' + user.lastname}
     h1 Super blog
     a(href="/add").btn.btn-block Ajouter un article
     for article in articles
@@ -17,14 +18,14 @@ block content
                         i(id='vote-up-'+article.id data-id=article.id).fa.fa-caret-up.fa-2x.vote-up
                         p(id='vote-count-'+article.id).vote-count #{article.voteupcount - article.votedowncount}
                         i(id='vote-down-'+article.id data-id=article.id).fa.fa-caret-down.fa-2x.vote-down
-                div(id="comments-container")
+                div(id="comments-container"+article.id)
                     for comment in article.comments
                         div.row
                             p #{comment.content}
                 div.row
                     form
-                        textarea(id='comment-content').materialize-textarea
-                        btn(id='add-comment-btn' data-id=article.id).btn Envoyer
+                        textarea(id='comment-content-'+article.id).materialize-textarea
+                        btn(id='add-comment-btn-'+article.id  data-id=article.id).btn.add-comment-btn Envoyer
     else
         div Aucun article
 block scripts

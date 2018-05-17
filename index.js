@@ -43,7 +43,7 @@ app.get('/add',(req,res) => {
 });
 
 app.get('/',(req,res) => {
-    displayAll(res);
+    displayAll(req,res);
 });
 
 app.post('/vote/up/:id',(req,res) => {
@@ -116,7 +116,7 @@ app.post('/login',
     })
 );
 
-function displayAll(res) {
+function displayAll(req,res) {
     return db.Article.sync()
         .then(() => {
             db.Article.findAll({
@@ -132,7 +132,8 @@ function displayAll(res) {
             }).then(r => {
                 // res.send(r);
                 res.render('list', {
-                    articles: r
+                    articles: r,
+                    user:req.user
                 });
         })
     });

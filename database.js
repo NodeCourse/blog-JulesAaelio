@@ -1,4 +1,6 @@
 const sequelize = require('sequelize');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const db = new sequelize('nodetest','datauser','toto',{
     host: 'localhost',
     dialect: 'mysql'
@@ -47,12 +49,15 @@ db.sync().then(r => {
 });
 
 
-User.create({
-    firstname:'Jules',
-    lastname:'LAURENT',
-    email:'jules.laurent@ynov.com',
-    password:'root'
+bcrypt.hash('root',saltRounds).then(hash=> {
+    User.create({
+        firstname:'Jules',
+        lastname:'LAURENT',
+        email:'jules.laurent@ynov.com',
+        password:hash
+    });
 });
+
 module.exports.db = db;
 module.exports.Article = Article;
 module.exports.UpVote = UpVote;
